@@ -173,10 +173,58 @@
         display: block;
       }
 
+      .explanation-container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        padding: 30px 40px;
+        max-width: 600px;
+        width: 100%;
+        margin: 20px auto 0;
+        color: #4a5568;
+        line-height: 1.6;
+      }
+
+      .explanation-container h3 {
+        color: #2d3748;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .explanation-container p {
+        margin-bottom: 15px;
+        font-size: 10px;
+      }
+
+      .explanation-container p:last-child {
+        margin-bottom: 0;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .explanation-container a {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .explanation-container a:hover {
+        color: #764ba2;
+        text-decoration: underline;
+      }
+
       @media (max-width: 640px) {
         .container {
           padding: 30px 20px;
           margin: 10px;
+        }
+
+        .explanation-container {
+          padding: 25px 20px;
+          margin: 20px 10px 0;
         }
 
         h1 {
@@ -194,39 +242,72 @@
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="header">
-        <h1>TorahAnytime Topic Classifier</h1>
-        <p class="subtitle">
-          Enter a Torah lecture title to classify its topic
-        </p>
-      </div>
-
-      <form id="classifyForm">
-        <div class="input-container">
-          <input
-            type="text"
-            id="titleInput"
-            placeholder="Enter lecture title (e.g., 'Why Did Hashem Choose Noach?')"
-            autocomplete="off"
-            required
-          />
-          <button type="submit" id="classifyBtn">Classify</button>
+    <div class="main-container">
+      <div class="container">
+        <div class="header">
+          <h1>TorahAnytime Topic Classifier</h1>
+          <p class="subtitle">
+            Enter a Torah lecture title to classify its topic
+          </p>
         </div>
-      </form>
 
-      <div class="loading" id="loading">
-        <div class="spinner"></div>
-        <span>Classifying...</span>
+        <form id="classifyForm">
+          <div class="input-container">
+            <input
+              type="text"
+              id="titleInput"
+              placeholder="Enter lecture title (e.g., 'Why Did Hashem Choose Noach?')"
+              autocomplete="off"
+              required
+            />
+            <button type="submit" id="classifyBtn">Classify</button>
+          </div>
+        </form>
+
+        <div class="loading" id="loading">
+          <div class="spinner"></div>
+          <span>Classifying...</span>
+        </div>
+
+        <div class="results" id="results">
+          <div class="result-label">Classification Result</div>
+          <div class="result-value" id="resultValue"></div>
+        </div>
+
+        <div class="error" id="error">
+          <strong>Error:</strong> <span id="errorMessage"></span>
+        </div>
       </div>
 
-      <div class="results" id="results">
-        <div class="result-label">Classification Result</div>
-        <div class="result-value" id="resultValue"></div>
-      </div>
-
-      <div class="error" id="error">
-        <strong>Error:</strong> <span id="errorMessage"></span>
+      <div class="explanation-container">
+        <h3>About This Tool</h3>
+        <p>
+          I created this tool to be used when automating uploading lectures to
+          Torah Anytime.com. When speakers post lectures via other means (e.g.
+          email, Vimeo, etc.), they provide titles but don't specify which
+          category (like "Parasha," "Holidays," or "Jewish Law") or subcategory
+          (like "Chanukah" or "Pesach") the lecture belongs to. This possed a
+          significant challenge when automating the upload process, as
+          TorahAnytime.com requies that lectures are given a category and
+          subcategory when uploaded.
+        </p>
+        <p>
+          To solve this, I built an automated classification system using
+          artificial intelligence. I collected metadata from over 390,000
+          existing TorahAnytime lectures, including their titles and proper
+          categories. Using this data, I trained a machine learning model to
+          understand the relationship between lecture titles and their
+          appropriate classifications. The system can now analyze a new lecture
+          title and automatically suggest the most suitable category and
+          subcategory.
+        </p>
+        <p>
+          <a
+            href="https://github.com/aribennett1/torahanytime-topic-classifier"
+            target="_blank"
+            >View the project on GitHub</a
+          >
+        </p>
       </div>
     </div>
 
