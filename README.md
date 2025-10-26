@@ -157,8 +157,7 @@ pip3 install sentence-transformers tqdm
 
 ## Data Statistics
 
-- **Total Lectures Scraped**: ~80,000
-- **Processed Lectures**: ~1.56M entries
+- **Total Lectures Scraped**: ~390,000
 - **Unique Topics**: 295
 - **Embedding Dimensions**: 1024
 - **Model Size**: ~2.5GB (multilingual-e5-large)
