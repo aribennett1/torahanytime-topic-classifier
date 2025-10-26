@@ -1,0 +1,123 @@
+{
+  "date_created": "2022-11-01T23:48:44.000Z",
+  "audio_download_size_string": "3.1 MB",
+  "audio_download_size": 3059250,
+  "auto_display": true,
+  "bitly_audio": "https://mytat.me/a210476",
+  "bitly_video": "https://mytat.me/v210476",
+  "category": 23,
+  "clip_link": null,
+  "clip_parent": null,
+  "clip_title": null,
+  "clipper_email": null,
+  "date_recorded": "2022-10-28",
+  "dedication": null,
+  "display_active": true,
+  "duration": 443,
+  "event_speakers": null,
+  "host": 0,
+  "id": 210476,
+  "id_md5": null,
+  "is_clip": null,
+  "is_short": false,
+  "jwplayer_mediaId": null,
+  "ladies": false,
+  "language": 1,
+  "lecture_url": null,
+  "location": 2,
+  "media": "210476--____10_02_2022__44768555-bcf4-4032-a65b-750cc2b1ed5b.mp4",
+  "meta_tag": "52b1d03ecc22376e6b9d662d9cac96f6a16da38c",
+  "no_download": null,
+  "on_recent_list": true,
+  "org": 0,
+  "original_file": "Charlie__Harary__10_28_2022__52b1d03ecc22376e6b9d662d9cac96f6a16da38c.mp4",
+  "phone_system_short_extension": "310475",
+  "private": false,
+  "private_code": null,
+  "published_by": 11172,
+  "published_by_name": "ndlbenge@gmail.com",
+  "slug": "parashat-noach-the-secret-power-of-faith",
+  "speaker": 110,
+  "subcategory": 46,
+  "text": null,
+  "thumbnail": "1538694812-d1be74ed5191cd5f5f548a5eb652a94e7b268a8c8c9c5f6d25e867f1b5faccdb-d",
+  "thumbnail_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/thumbnails/210476/210476.jpg",
+  "title": "Parashat Noach: The Secret Power of Faith",
+  "title_rtl": false,
+  "desc": null,
+  "video_download_size_string": "17.49MB",
+  "video_download_size": 18336811,
+  "vimeo_video": "vimeo_002---/videos/766292790",
+  "vimeo_video_links": [
+    "https://proxier.torahanytime.com/aHR0cHM6Ly90YS1sZWN0dXJlcy5zMy51cy1lYXN0LTAwNS5iYWNrYmxhemViMi5jb20vbW9iaWxlcmVzLzIxMDQ3Ni0tX19fXzEwXzAyXzIwMjJfXzQ0NzY4NTU1LWJjZjQtNDAzMi1hNjViLTc1MGNjMmIxZWQ1Yi5tcDQ/cf570f38f9540bccc8055fbe2939e559500689e41ea21a96fae471654b659959.mp4?has_women=0&speaker_id=110&digest=4ef9ff835f0ad7eb5b1e6f15c14828183323965cecb8b71647ff2daaeb82ba60"
+  ],
+  "vimeo_video_links_legacy": [
+    "https://player.vimeo.com/progressive_redirect/playback/766292790/rendition/240p/file.mp4?loc=external&oauth2_token_id=1080790441&signature=7ed1ad2027e80bd70b77bda294615559a5be7b0e394718b8d35b816d7beb59e2",
+    "https://player.vimeo.com/progressive_redirect/playback/766292790/rendition/360p/file.mp4?loc=external&oauth2_token_id=1080790441&signature=f5fa7c2bc862f5ffd434bfe4e005c82f44fa0ef5b85663c434c0946dc4e5160e",
+    "https://player.vimeo.com/external/766292790.m3u8?s=6f4103e34667fa6f60fd9180c98cdead82938989&oauth2_token_id=1080790441"
+  ],
+  "vimeo_hash": "1793a9e5b0",
+  "box_id": 1055397288613,
+  "publish_by_date": null,
+  "date_to_show": "2022-11-01T23:48:44.000Z",
+  "is_only_watchable_by_female": false,
+  "is_only_listenable_by_female": false,
+  "is_only_discoverable_by_female": false,
+  "is_only_discoverable_within_org": false,
+  "is_not_discoverable": false,
+  "m3u8_url": null,
+  "mp4_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/mobileres/210476--____10_02_2022__44768555-bcf4-4032-a65b-750cc2b1ed5b.mp4",
+  "mp3_url": "https://dl.torahanytime.com/mp3/210476--____10_02_2022__44768555-bcf4-4032-a65b-750cc2b1ed5b.mp4.mp3",
+  "watermarked_original_mp4_url": null,
+  "ragie_document_id": "e98de441-e659-4009-a523-4c86fcfdb3c1",
+  "created_at": "2022-11-01T23:48:44.000Z",
+  "updated_at": "2025-03-06T14:29:45.000Z",
+  "deleted_at": null,
+  "subcategories": [
+    {
+      "id": 46,
+      "name": "Noach",
+      "english_name": null
+    }
+  ],
+  "parent_info": null,
+  "clip_review_status": {
+    "user_id": 178,
+    "lecture_id": 210476
+  },
+  "projects": [
+    {
+      "id": 1,
+      "name": "TorahAnytime"
+    },
+    {
+      "id": 2,
+      "name": "JewishAnytime"
+    }
+  ],
+  "categories": [
+    {
+      "id": 23,
+      "name": "Parasha/Torah Portion",
+      "english_name": "Torah"
+    }
+  ],
+  "language_name": "English",
+  "speaker_name_first": "Charlie",
+  "speaker_name_last": "Harary",
+  "speaker_photo": "mr-charlie-harary_photo_a4150e0e8f9432d957ea86264776b258",
+  "female": false,
+  "view_female_level": 0,
+  "speaker_no_download": 0,
+  "speaker_title": "Mr.",
+  "speaker_title_short": "Mr.",
+  "video_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/mobileres/210476--____10_02_2022__44768555-bcf4-4032-a65b-750cc2b1ed5b.mp4",
+  "audio_url": "https://dl.torahanytime.com/mp3/210476--____10_02_2022__44768555-bcf4-4032-a65b-750cc2b1ed5b.mp4.mp3",
+  "vimeo_video_id": "766292790",
+  "proxy_mp4_url": "https://proxier.torahanytime.com/aHR0cHM6Ly90YS1sZWN0dXJlcy5zMy51cy1lYXN0LTAwNS5iYWNrYmxhemViMi5jb20vbW9iaWxlcmVzLzIxMDQ3Ni0tX19fXzEwXzAyXzIwMjJfXzQ0NzY4NTU1LWJjZjQtNDAzMi1hNjViLTc1MGNjMmIxZWQ1Yi5tcDQ/cf570f38f9540bccc8055fbe2939e559500689e41ea21a96fae471654b659959.mp4?has_women=0&speaker_id=110&digest=4ef9ff835f0ad7eb5b1e6f15c14828183323965cecb8b71647ff2daaeb82ba60",
+  "series_id": 586,
+  "series_title": "Charlie's Vlog",
+  "series_female_only": 0,
+  "likeCount": 4,
+  "viewCount": 2390
+}

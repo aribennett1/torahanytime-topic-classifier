@@ -1,0 +1,119 @@
+{
+  "date_created": "2020-09-18T18:08:11.000Z",
+  "audio_download_size_string": "30.1 MB",
+  "audio_download_size": 30073331,
+  "auto_display": true,
+  "bitly_audio": "https://mytat.me/a124813",
+  "bitly_video": "https://mytat.me/v124813",
+  "category": 8,
+  "clip_link": null,
+  "clip_parent": null,
+  "clip_title": null,
+  "clipper_email": null,
+  "date_recorded": "2020-09-15",
+  "dedication": null,
+  "display_active": true,
+  "duration": 3348,
+  "event_speakers": null,
+  "host": 78,
+  "id": 124813,
+  "id_md5": null,
+  "is_clip": null,
+  "is_short": false,
+  "jwplayer_mediaId": "MiIdN8hF",
+  "ladies": false,
+  "language": 1,
+  "lecture_url": null,
+  "location": 31,
+  "media": "124813--____08_05_2020__69e057b9-e329-43f1-b4f9-aae101292ef6.mp4",
+  "meta_tag": "94fbc57e3bff2c0331488749b3dcaf53b7760f2f",
+  "no_download": null,
+  "on_recent_list": true,
+  "org": 78,
+  "original_file": "Pinchas___Landis__09_15_2020__94fbc57e3bff2c0331488749b3dcaf53b7760f2f.mp4",
+  "phone_system_short_extension": "224812",
+  "private": false,
+  "private_code": null,
+  "published_by": 61584,
+  "published_by_name": "Pinchas Landis",
+  "slug": "a-state-of-planning",
+  "speaker": 1228,
+  "subcategory": 28,
+  "text": null,
+  "thumbnail": "1246674934-0af61ff3611966f4636d2fe7ac797e2b2b8171a595630711b3e2a5f7c8ef0e71-d",
+  "thumbnail_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/thumbnails/124813/124813.jpg",
+  "title": "A State [Of] Planning",
+  "title_rtl": false,
+  "desc": null,
+  "video_download_size_string": "142.02MB",
+  "video_download_size": 148916133,
+  "vimeo_video": "vimeo_002---/videos/459485221",
+  "vimeo_video_links": [
+    "https://proxier.torahanytime.com/aHR0cHM6Ly90YS1sZWN0dXJlcy5zMy51cy1lYXN0LTAwNS5iYWNrYmxhemViMi5jb20vbW9iaWxlcmVzLzEyNDgxMy0tX19fXzA4XzA1XzIwMjBfXzY5ZTA1N2I5LWUzMjktNDNmMS1iNGY5LWFhZTEwMTI5MmVmNi5tcDQ/8efb5d999608da5ff9609642d33f8c2fb4225f12eb3bbee3983fe779976c66ae.mp4?has_women=0&speaker_id=1228&digest=0ab5ca8f5c9b1d9a49fbade23bcec5a7a85cb86792a77746691547f54670b669"
+  ],
+  "vimeo_video_links_legacy": [
+    "https://player.vimeo.com/external/459485221.sd.mp4?s=6b3fa67d918406538f624f9e546ac15fba080c7d&profile_id=164&oauth2_token_id=1080790441",
+    "https://player.vimeo.com/external/459485221.m3u8?s=23bd1ca0e90cd2627cdef8a2d2b830fc613f797d&oauth2_token_id=1080790441"
+  ],
+  "vimeo_hash": "13b62a1f3c",
+  "box_id": 720865416179,
+  "publish_by_date": null,
+  "date_to_show": "2020-09-18T18:08:11.000Z",
+  "is_only_watchable_by_female": false,
+  "is_only_listenable_by_female": false,
+  "is_only_discoverable_by_female": false,
+  "is_only_discoverable_within_org": false,
+  "is_not_discoverable": false,
+  "m3u8_url": null,
+  "mp4_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/mobileres/124813--____08_05_2020__69e057b9-e329-43f1-b4f9-aae101292ef6.mp4",
+  "mp3_url": "https://dl.torahanytime.com/mp3/124813--____08_05_2020__69e057b9-e329-43f1-b4f9-aae101292ef6.mp4.mp3",
+  "watermarked_original_mp4_url": null,
+  "ragie_document_id": "81571309-2212-4ddd-b900-bace18d34482",
+  "created_at": "2020-09-18T18:08:11.000Z",
+  "updated_at": "2025-03-06T14:29:45.000Z",
+  "deleted_at": null,
+  "subcategories": [
+    {
+      "id": 28,
+      "name": "Yom Kippur",
+      "english_name": "Yom Kippur"
+    }
+  ],
+  "parent_info": null,
+  "clip_review_status": {
+    "user_id": 178,
+    "lecture_id": 124813
+  },
+  "projects": [
+    {
+      "id": 1,
+      "name": "TorahAnytime"
+    },
+    {
+      "id": 2,
+      "name": "JewishAnytime"
+    }
+  ],
+  "categories": [
+    {
+      "id": 8,
+      "name": "Holidays",
+      "english_name": "Holidays"
+    }
+  ],
+  "language_name": "English",
+  "speaker_name_first": "Pinchas",
+  "speaker_name_last": "Landis",
+  "speaker_photo": "r-pinchas-landis_photo_e5836528f7364c605a39d8468531a6b0",
+  "female": false,
+  "view_female_level": 0,
+  "speaker_no_download": 0,
+  "speaker_title": "Rabbi",
+  "speaker_title_short": "R'",
+  "video_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/mobileres/124813--____08_05_2020__69e057b9-e329-43f1-b4f9-aae101292ef6.mp4",
+  "audio_url": "https://dl.torahanytime.com/mp3/124813--____08_05_2020__69e057b9-e329-43f1-b4f9-aae101292ef6.mp4.mp3",
+  "vimeo_video_id": "459485221",
+  "proxy_mp4_url": "https://proxier.torahanytime.com/aHR0cHM6Ly90YS1sZWN0dXJlcy5zMy51cy1lYXN0LTAwNS5iYWNrYmxhemViMi5jb20vbW9iaWxlcmVzLzEyNDgxMy0tX19fXzA4XzA1XzIwMjBfXzY5ZTA1N2I5LWUzMjktNDNmMS1iNGY5LWFhZTEwMTI5MmVmNi5tcDQ/8efb5d999608da5ff9609642d33f8c2fb4225f12eb3bbee3983fe779976c66ae.mp4?has_women=0&speaker_id=1228&digest=0ab5ca8f5c9b1d9a49fbade23bcec5a7a85cb86792a77746691547f54670b669",
+  "likeCount": 0,
+  "viewCount": 5
+}

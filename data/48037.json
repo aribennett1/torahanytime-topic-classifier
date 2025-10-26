@@ -1,0 +1,117 @@
+{
+  "date_created": "2017-09-15T12:11:53.000Z",
+  "audio_download_size_string": "31.8 MB",
+  "audio_download_size": 31821030,
+  "auto_display": true,
+  "bitly_audio": "https://mytat.me/a48037",
+  "bitly_video": "https://mytat.me/v48037",
+  "category": 99,
+  "clip_link": null,
+  "clip_parent": null,
+  "clip_title": null,
+  "clipper_email": null,
+  "date_recorded": "2020-02-03",
+  "dedication": null,
+  "display_active": true,
+  "duration": 3909,
+  "event_speakers": [
+    90
+  ],
+  "host": 0,
+  "id": 48037,
+  "id_md5": null,
+  "is_clip": false,
+  "is_short": false,
+  "jwplayer_mediaId": "wnv3tDv3",
+  "ladies": true,
+  "language": 1,
+  "lecture_url": null,
+  "location": 2,
+  "media": "48037--____05_04_2020__d840b6e5-b24e-4aad-b95d-a07b79ce0aa8.mp4",
+  "meta_tag": "df8ec9d405d6e21babcf35698d9f0b9a5a115505",
+  "no_download": false,
+  "on_recent_list": false,
+  "org": 0,
+  "original_file": "Leah__Richeimer__02_04_2020__df8ec9d405d6e21babcf35698d9f0b9a5a115505.mp4",
+  "phone_system_short_extension": "148036",
+  "private": false,
+  "private_code": null,
+  "published_by": 14019,
+  "published_by_name": "jasonsegev88@gmail.com",
+  "slug": "lts-rabbi-zachariah-wallerstein-the-biggest-mistakes-parents-make",
+  "speaker": 509,
+  "subcategory": 101,
+  "text": null,
+  "thumbnail": "1246828509-4425146de3610cafa569968744f3359cc15cbd8e4b2ac611fc5440275c75a719-d",
+  "thumbnail_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/thumbnails/48037/48037.jpg",
+  "title": "LTS: Rabbi Zachariah Wallerstein- The Biggest Mistakes Parents Make",
+  "title_rtl": false,
+  "desc": null,
+  "video_download_size_string": "177.88MB",
+  "video_download_size": 186524049,
+  "vimeo_video": "vimeo_002---/videos/426012291",
+  "vimeo_video_links": [
+    "https://proxier.torahanytime.com/aHR0cHM6Ly90YS1sZWN0dXJlcy5zMy51cy1lYXN0LTAwNS5iYWNrYmxhemViMi5jb20vbW9iaWxlcmVzLzQ4MDM3LS1fX19fMDVfMDRfMjAyMF9fZDg0MGI2ZTUtYjI0ZS00YWFkLWI5NWQtYTA3Yjc5Y2UwYWE4Lm1wNA/ffc389c324aaabe05b420853a547f269814401f5fbd202544956822834921003.mp4?has_women=1&speaker_id=509&digest=cfc268186c3da7627d8a9a663274229c9deb89b33be6b0f73ac888cf83c6b1a1"
+  ],
+  "vimeo_video_links_legacy": [
+    "https://player.vimeo.com/external/426012291.sd.mp4?s=97b6ec0c6221ed83c8e1417291df51edfea5730c&profile_id=164&oauth2_token_id=1080790441",
+    "https://player.vimeo.com/external/426012291.m3u8?s=dbdacf24c15062842fbf7e16d6d505cfa0f8e973&oauth2_token_id=1080790441"
+  ],
+  "vimeo_hash": "a9ac78764f",
+  "box_id": 730205847224,
+  "publish_by_date": null,
+  "date_to_show": "2020-02-03T05:00:00.000Z",
+  "is_only_watchable_by_female": true,
+  "is_only_listenable_by_female": false,
+  "is_only_discoverable_by_female": false,
+  "is_only_discoverable_within_org": false,
+  "is_not_discoverable": false,
+  "m3u8_url": null,
+  "mp4_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/mobileres/48037--____05_04_2020__d840b6e5-b24e-4aad-b95d-a07b79ce0aa8.mp4",
+  "mp3_url": "https://dl.torahanytime.com/mp3/48037--____05_04_2020__d840b6e5-b24e-4aad-b95d-a07b79ce0aa8.mp4.mp3",
+  "watermarked_original_mp4_url": null,
+  "ragie_document_id": "c0db0729-a888-49e3-bb46-e1b50a7bddfd",
+  "created_at": "2017-09-15T12:11:53.000Z",
+  "updated_at": "2025-03-06T14:29:45.000Z",
+  "deleted_at": null,
+  "subcategories": [
+    {
+      "id": 101,
+      "name": "Marriage",
+      "english_name": "Marriage"
+    }
+  ],
+  "parent_info": null,
+  "clip_review_status": {
+    "user_id": 178,
+    "lecture_id": 48037
+  },
+  "projects": [
+    {
+      "id": 1,
+      "name": "TorahAnytime"
+    }
+  ],
+  "categories": [
+    {
+      "id": 99,
+      "name": "Dating and Marriage",
+      "english_name": null
+    }
+  ],
+  "language_name": "English",
+  "speaker_name_first": "Leah",
+  "speaker_name_last": "Richeimer",
+  "speaker_photo": "mrs-leah-richeimer_06d7fe3a-83ab-4e41-92c0-fe006d676419.png",
+  "female": true,
+  "view_female_level": 1,
+  "speaker_no_download": 0,
+  "speaker_title": "Mrs.",
+  "speaker_title_short": "Mrs.",
+  "video_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/mobileres/48037--____05_04_2020__d840b6e5-b24e-4aad-b95d-a07b79ce0aa8.mp4",
+  "audio_url": "https://dl.torahanytime.com/mp3/48037--____05_04_2020__d840b6e5-b24e-4aad-b95d-a07b79ce0aa8.mp4.mp3",
+  "vimeo_video_id": "426012291",
+  "proxy_mp4_url": "https://proxier.torahanytime.com/aHR0cHM6Ly90YS1sZWN0dXJlcy5zMy51cy1lYXN0LTAwNS5iYWNrYmxhemViMi5jb20vbW9iaWxlcmVzLzQ4MDM3LS1fX19fMDVfMDRfMjAyMF9fZDg0MGI2ZTUtYjI0ZS00YWFkLWI5NWQtYTA3Yjc5Y2UwYWE4Lm1wNA/ffc389c324aaabe05b420853a547f269814401f5fbd202544956822834921003.mp4?has_women=1&speaker_id=509&digest=cfc268186c3da7627d8a9a663274229c9deb89b33be6b0f73ac888cf83c6b1a1",
+  "likeCount": 15,
+  "viewCount": 5435
+}

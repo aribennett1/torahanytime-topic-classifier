@@ -1,0 +1,123 @@
+{
+  "date_created": "2021-11-07T00:18:52.000Z",
+  "audio_download_size_string": "2.5 MB",
+  "audio_download_size": 2483980,
+  "auto_display": true,
+  "bitly_audio": "https://mytat.me/a167448",
+  "bitly_video": "https://mytat.me/v167448",
+  "category": 23,
+  "clip_link": null,
+  "clip_parent": null,
+  "clip_title": null,
+  "clipper_email": null,
+  "date_recorded": "2021-11-05",
+  "dedication": null,
+  "display_active": true,
+  "duration": 394,
+  "event_speakers": [],
+  "host": 0,
+  "id": 167448,
+  "id_md5": null,
+  "is_clip": null,
+  "is_short": false,
+  "jwplayer_mediaId": "gJYRoztH",
+  "ladies": false,
+  "language": 1,
+  "lecture_url": null,
+  "location": 2,
+  "media": "167448--____10_00_2021__62bc2f76-b5f7-4715-be7d-9ada22234a8f.mp4",
+  "meta_tag": "d885904eece2c74f9b5356cfbf359766a78ae8d6",
+  "no_download": null,
+  "on_recent_list": true,
+  "org": 0,
+  "original_file": null,
+  "phone_system_short_extension": "267447",
+  "private": false,
+  "private_code": null,
+  "published_by": 11172,
+  "published_by_name": "ndlbenge@gmail.com",
+  "slug": "parashat-toldot-the-greatest-blessing-of-all",
+  "speaker": 110,
+  "subcategory": 50,
+  "text": null,
+  "thumbnail": "1293627336-73020e109d80d40a38bbe87901b6542fe8fe6c30d3f8aef0b",
+  "thumbnail_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/thumbnails/167448/167448.jpg",
+  "title": "Parashat Toldot- The Greatest Blessing of All",
+  "title_rtl": false,
+  "desc": null,
+  "video_download_size_string": "15.51MB",
+  "video_download_size": 16266258,
+  "vimeo_video": "vimeo_002---/videos/643099426",
+  "vimeo_video_links": [
+    "https://proxier.torahanytime.com/aHR0cHM6Ly90YS1sZWN0dXJlcy5zMy51cy1lYXN0LTAwNS5iYWNrYmxhemViMi5jb20vbW9iaWxlcmVzLzE2NzQ0OC0tX19fXzEwXzAwXzIwMjFfXzYyYmMyZjc2LWI1ZjctNDcxNS1iZTdkLTlhZGEyMjIzNGE4Zi5tcDQ/1b9557cc7e99d2f27f074ad3854ec02c01c5e97c70412d2d5f65269e4f5dcda8.mp4?has_women=0&speaker_id=110&digest=4ef9ff835f0ad7eb5b1e6f15c14828183323965cecb8b71647ff2daaeb82ba60"
+  ],
+  "vimeo_video_links_legacy": [
+    "https://player.vimeo.com/external/643099426.sd.mp4?s=74b3e8b552e32759335607a289f0cb0c168cedad&profile_id=139&oauth_token_id=1080790441",
+    "https://player.vimeo.com/external/643099426.sd.mp4?s=74b3e8b552e32759335607a289f0cb0c168cedad&profile_id=164&oauth_token_id=1080790441",
+    "https://player.vimeo.com/external/643099426.m3u8?s=935efdd4337565e454b676e73b9aae72ae390a7f&oauth2_token_id=1080790441"
+  ],
+  "vimeo_hash": "c387711954",
+  "box_id": 881937838653,
+  "publish_by_date": null,
+  "date_to_show": "2021-11-07T00:18:52.000Z",
+  "is_only_watchable_by_female": false,
+  "is_only_listenable_by_female": false,
+  "is_only_discoverable_by_female": false,
+  "is_only_discoverable_within_org": false,
+  "is_not_discoverable": false,
+  "m3u8_url": null,
+  "mp4_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/mobileres/167448--____10_00_2021__62bc2f76-b5f7-4715-be7d-9ada22234a8f.mp4",
+  "mp3_url": "https://dl.torahanytime.com/mp3/167448--____10_00_2021__62bc2f76-b5f7-4715-be7d-9ada22234a8f.mp4.mp3",
+  "watermarked_original_mp4_url": null,
+  "ragie_document_id": "82243366-98da-49e2-ae3c-cef71acb503f",
+  "created_at": "2021-11-07T00:18:52.000Z",
+  "updated_at": "2025-03-06T14:29:45.000Z",
+  "deleted_at": null,
+  "subcategories": [
+    {
+      "id": 50,
+      "name": "Toldot",
+      "english_name": null
+    }
+  ],
+  "parent_info": null,
+  "clip_review_status": {
+    "user_id": 178,
+    "lecture_id": 167448
+  },
+  "projects": [
+    {
+      "id": 1,
+      "name": "TorahAnytime"
+    },
+    {
+      "id": 2,
+      "name": "JewishAnytime"
+    }
+  ],
+  "categories": [
+    {
+      "id": 23,
+      "name": "Parasha/Torah Portion",
+      "english_name": "Torah"
+    }
+  ],
+  "language_name": "English",
+  "speaker_name_first": "Charlie",
+  "speaker_name_last": "Harary",
+  "speaker_photo": "mr-charlie-harary_photo_a4150e0e8f9432d957ea86264776b258",
+  "female": false,
+  "view_female_level": 0,
+  "speaker_no_download": 0,
+  "speaker_title": "Mr.",
+  "speaker_title_short": "Mr.",
+  "video_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/mobileres/167448--____10_00_2021__62bc2f76-b5f7-4715-be7d-9ada22234a8f.mp4",
+  "audio_url": "https://dl.torahanytime.com/mp3/167448--____10_00_2021__62bc2f76-b5f7-4715-be7d-9ada22234a8f.mp4.mp3",
+  "vimeo_video_id": "643099426",
+  "proxy_mp4_url": "https://proxier.torahanytime.com/aHR0cHM6Ly90YS1sZWN0dXJlcy5zMy51cy1lYXN0LTAwNS5iYWNrYmxhemViMi5jb20vbW9iaWxlcmVzLzE2NzQ0OC0tX19fXzEwXzAwXzIwMjFfXzYyYmMyZjc2LWI1ZjctNDcxNS1iZTdkLTlhZGEyMjIzNGE4Zi5tcDQ/1b9557cc7e99d2f27f074ad3854ec02c01c5e97c70412d2d5f65269e4f5dcda8.mp4?has_women=0&speaker_id=110&digest=4ef9ff835f0ad7eb5b1e6f15c14828183323965cecb8b71647ff2daaeb82ba60",
+  "series_id": 586,
+  "series_title": "Charlie's Vlog",
+  "series_female_only": 0,
+  "likeCount": 5,
+  "viewCount": 3128
+}

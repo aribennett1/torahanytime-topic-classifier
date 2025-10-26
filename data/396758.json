@@ -1,0 +1,111 @@
+{
+  "date_created": "2025-09-26T18:30:43.000Z",
+  "audio_download_size_string": null,
+  "audio_download_size": null,
+  "auto_display": false,
+  "bitly_audio": "https://mytat.me/a396758",
+  "bitly_video": "https://mytat.me/v396758",
+  "category": 8,
+  "clip_link": null,
+  "clip_parent": null,
+  "clip_title": null,
+  "clipper_email": null,
+  "date_recorded": "2025-09-21",
+  "dedication": null,
+  "display_active": true,
+  "duration": 2701,
+  "event_speakers": [
+    1506
+  ],
+  "host": 0,
+  "id": 396758,
+  "id_md5": null,
+  "is_clip": null,
+  "is_short": false,
+  "jwplayer_mediaId": null,
+  "ladies": true,
+  "language": 1,
+  "lecture_url": null,
+  "location": 0,
+  "media": "",
+  "meta_tag": "ebc7ee1a8ea5ff4b27cb2474d92f6d5740294e30",
+  "no_download": false,
+  "on_recent_list": true,
+  "org": 0,
+  "original_file": null,
+  "phone_system_short_extension": "496699",
+  "private": false,
+  "private_code": null,
+  "published_by": 61584,
+  "published_by_name": "Pinchas Landis",
+  "slug": "mrs-yaffa-palti-intimacy-with-hashem",
+  "speaker": 0,
+  "subcategory": 27,
+  "text": null,
+  "thumbnail": "2063597509-49c7a3e8f0da65c92fac28b8fc115f04012ecd722b43d89af25520dfb0aaf108-d?region=us",
+  "thumbnail_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/thumbnails/396758/396758-t37ks1.jpg",
+  "title": "Mrs. Yaffa Palti - Intimacy With Hashem",
+  "title_rtl": false,
+  "desc": null,
+  "video_download_size_string": null,
+  "video_download_size": null,
+  "vimeo_video": null,
+  "vimeo_video_links": [
+    "https://proxier.torahanytime.com/aHR0cHM6Ly90YS1sZWN0dXJlcy5zMy51cy1lYXN0LTAwNS5iYWNrYmxhemViMi5jb20vaGxzLzM5Njc1OC90MzdrcmUvbWFzdGVyLm0zdTg/495ea3853de1173c4ab850485ef3b2eb09ca794e81c5a878124b91d0a379c851.m3u8?has_women=0&speaker_id=0&digest=75a3ef14a980939b965f80821fc8df58d51afdcb44e8d888195bb1d2d972be92",
+    "https://proxier.torahanytime.com/aHR0cHM6Ly90YS1sZWN0dXJlcy5zMy51cy1lYXN0LTAwNS5iYWNrYmxhemViMi5jb20vbXA0LzM5Njc1OC10MzdrcmUubXA0/00ad5965005986e684220d3fc66145f48540daed636bf4c4373220046804bfee.mp4?has_women=0&speaker_id=0&digest=75a3ef14a980939b965f80821fc8df58d51afdcb44e8d888195bb1d2d972be92"
+  ],
+  "vimeo_video_links_legacy": true,
+  "vimeo_hash": null,
+  "box_id": 1998444995472,
+  "publish_by_date": null,
+  "date_to_show": "2025-09-26T18:53:04.000Z",
+  "is_only_watchable_by_female": false,
+  "is_only_listenable_by_female": false,
+  "is_only_discoverable_by_female": false,
+  "is_only_discoverable_within_org": false,
+  "is_not_discoverable": false,
+  "m3u8_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/hls/396758/t37kre/master.m3u8",
+  "mp4_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/mp4/396758-t37kre.mp4",
+  "mp3_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/mp3/396758/396758-t37kre.mp3",
+  "watermarked_original_mp4_url": null,
+  "ragie_document_id": "7ec2eca1-907d-4013-b1f2-a9f2285ff996",
+  "created_at": "2025-09-26T18:30:43.000Z",
+  "updated_at": "2025-09-27T01:15:22.000Z",
+  "deleted_at": null,
+  "subcategories": [
+    {
+      "id": 27,
+      "name": "Rosh Hashanah",
+      "english_name": "Rosh Hashanah"
+    }
+  ],
+  "speaker_lecture": null,
+  "parent_info": null,
+  "clip_review_status": null,
+  "projects": [
+    {
+      "id": 1,
+      "name": "TorahAnytime"
+    },
+    {
+      "id": 2,
+      "name": "JewishAnytime"
+    }
+  ],
+  "categories": [
+    {
+      "id": 8,
+      "name": "Holidays",
+      "english_name": "Holidays"
+    }
+  ],
+  "language_name": "English",
+  "female": false,
+  "video_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/mp4/396758-t37kre.mp4",
+  "audio_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/mp3/396758/396758-t37kre.mp3",
+  "proxy_m3u8_url": "https://proxier.torahanytime.com/aHR0cHM6Ly90YS1sZWN0dXJlcy5zMy51cy1lYXN0LTAwNS5iYWNrYmxhemViMi5jb20vaGxzLzM5Njc1OC90MzdrcmUvbWFzdGVyLm0zdTg/495ea3853de1173c4ab850485ef3b2eb09ca794e81c5a878124b91d0a379c851.m3u8?has_women=0&speaker_id=0&digest=75a3ef14a980939b965f80821fc8df58d51afdcb44e8d888195bb1d2d972be92",
+  "vimeo_proxy_m3u8_url": "https://proxier.torahanytime.com/aHR0cHM6Ly90YS1sZWN0dXJlcy5zMy51cy1lYXN0LTAwNS5iYWNrYmxhemViMi5jb20vaGxzLzM5Njc1OC90MzdrcmUvbWFzdGVyLm0zdTg/495ea3853de1173c4ab850485ef3b2eb09ca794e81c5a878124b91d0a379c851.m3u8?has_women=0&speaker_id=0&digest=75a3ef14a980939b965f80821fc8df58d51afdcb44e8d888195bb1d2d972be92",
+  "proxy_mp4_url": "https://proxier.torahanytime.com/aHR0cHM6Ly90YS1sZWN0dXJlcy5zMy51cy1lYXN0LTAwNS5iYWNrYmxhemViMi5jb20vbXA0LzM5Njc1OC10MzdrcmUubXA0/00ad5965005986e684220d3fc66145f48540daed636bf4c4373220046804bfee.mp4?has_women=0&speaker_id=0&digest=75a3ef14a980939b965f80821fc8df58d51afdcb44e8d888195bb1d2d972be92",
+  "likeCount": 1,
+  "viewCount": 64
+}

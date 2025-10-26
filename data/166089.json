@@ -1,0 +1,113 @@
+{
+  "date_created": "2021-10-25T18:54:00.000Z",
+  "audio_download_size_string": "23.0 MB",
+  "audio_download_size": 23038986,
+  "auto_display": true,
+  "bitly_audio": "https://mytat.me/a166089",
+  "bitly_video": "https://mytat.me/v166089",
+  "category": 126,
+  "clip_link": null,
+  "clip_parent": null,
+  "clip_title": null,
+  "clipper_email": null,
+  "date_recorded": "2021-10-24",
+  "dedication": null,
+  "display_active": true,
+  "duration": 2647,
+  "event_speakers": [
+    755
+  ],
+  "host": 0,
+  "id": 166089,
+  "id_md5": null,
+  "is_clip": null,
+  "is_short": false,
+  "jwplayer_mediaId": "tclSGjwx",
+  "ladies": false,
+  "language": 5,
+  "lecture_url": null,
+  "location": 4,
+  "media": "166089--____09_01_2021__7abaf435-86f7-48ae-a7b2-f08376d5594b.mp4",
+  "meta_tag": "5e3a28841dd2c49e2f8109a96f8d86c3e13d5bfc",
+  "no_download": null,
+  "on_recent_list": true,
+  "org": 0,
+  "original_file": "David__Yosef__10_24_2021__5e3a28841dd2c49e2f8109a96f8d86c3e13d5bfc.mp4",
+  "phone_system_short_extension": "266088",
+  "private": false,
+  "private_code": null,
+  "published_by": 145310,
+  "published_by_name": "Tiferet Torah",
+  "slug": "rabbi-david-yosef-visits-yeshivat-tiferet-torah-monsey-ny-rabbi-nissan-hakakian",
+  "speaker": 872,
+  "subcategory": 157,
+  "text": null,
+  "thumbnail": "1284391793-a320e17ea8711da3d3382f8322ab7d4772ad781e9c9524a6f",
+  "thumbnail_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/thumbnails/166089/166089.jpg",
+  "title": "Rabbi David Yosef visits Yeshivat Tiferet Torah Monsey N.Y (Rabbi Nissan Hakakian)",
+  "title_rtl": false,
+  "desc": null,
+  "video_download_size_string": "164.26MB",
+  "video_download_size": 172242115,
+  "vimeo_video": "vimeo_002---/videos/638795680",
+  "vimeo_video_links": [
+    "https://proxier.torahanytime.com/aHR0cHM6Ly90YS1sZWN0dXJlcy5zMy51cy1lYXN0LTAwNS5iYWNrYmxhemViMi5jb20vbW9iaWxlcmVzLzE2NjA4OS0tX19fXzA5XzAxXzIwMjFfXzdhYmFmNDM1LTg2ZjctNDhhZS1hN2IyLWYwODM3NmQ1NTk0Yi5tcDQ/df3102fe0de658d25e0e1d44a65f746e2ddf58fce3a8644391ad67fe4805de7f.mp4?has_women=0&speaker_id=872&digest=99386aa5c69f49f76732fe73b462317e1f62584d93d19d5295ca09e613e72bba"
+  ],
+  "vimeo_video_links_legacy": [
+    "https://player.vimeo.com/external/638795680.sd.mp4?s=8790f86a322d8290d6327b3accfd96bbb92d87bc&profile_id=164&oauth2_token_id=1080790441",
+    "https://player.vimeo.com/external/638795680.m3u8?s=da3a66e6e01d559641bbda71eea6f7f27c88f48a&oauth2_token_id=1080790441"
+  ],
+  "vimeo_hash": "96a01c2302",
+  "box_id": 877174723046,
+  "publish_by_date": null,
+  "date_to_show": "2021-10-25T18:54:00.000Z",
+  "is_only_watchable_by_female": false,
+  "is_only_listenable_by_female": false,
+  "is_only_discoverable_by_female": false,
+  "is_only_discoverable_within_org": false,
+  "is_not_discoverable": false,
+  "m3u8_url": null,
+  "mp4_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/mobileres/166089--____09_01_2021__7abaf435-86f7-48ae-a7b2-f08376d5594b.mp4",
+  "mp3_url": "https://dl.torahanytime.com/mp3/166089--____09_01_2021__7abaf435-86f7-48ae-a7b2-f08376d5594b.mp4.mp3",
+  "watermarked_original_mp4_url": null,
+  "ragie_document_id": "4f17d14a-5bbc-401d-b29c-d8ca18014b40",
+  "created_at": "2021-10-25T18:54:00.000Z",
+  "updated_at": "2025-03-06T14:29:45.000Z",
+  "deleted_at": null,
+  "subcategories": [
+    {
+      "id": 157,
+      "name": "Shabbat",
+      "english_name": null
+    }
+  ],
+  "parent_info": null,
+  "projects": [
+    {
+      "id": 1,
+      "name": "TorahAnytime"
+    }
+  ],
+  "categories": [
+    {
+      "id": 126,
+      "name": "Halacha/Jewish Law",
+      "english_name": null
+    }
+  ],
+  "language_name": "Hebrew",
+  "speaker_name_first": "David",
+  "speaker_name_last": "Yosef",
+  "speaker_photo": "r-david-yosef_photo_525f104b728fe8e5eca97c52395e14dc",
+  "female": false,
+  "view_female_level": 0,
+  "speaker_no_download": 0,
+  "speaker_title": "Rabbi",
+  "speaker_title_short": "R'",
+  "video_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/mobileres/166089--____09_01_2021__7abaf435-86f7-48ae-a7b2-f08376d5594b.mp4",
+  "audio_url": "https://dl.torahanytime.com/mp3/166089--____09_01_2021__7abaf435-86f7-48ae-a7b2-f08376d5594b.mp4.mp3",
+  "vimeo_video_id": "638795680",
+  "proxy_mp4_url": "https://proxier.torahanytime.com/aHR0cHM6Ly90YS1sZWN0dXJlcy5zMy51cy1lYXN0LTAwNS5iYWNrYmxhemViMi5jb20vbW9iaWxlcmVzLzE2NjA4OS0tX19fXzA5XzAxXzIwMjFfXzdhYmFmNDM1LTg2ZjctNDhhZS1hN2IyLWYwODM3NmQ1NTk0Yi5tcDQ/df3102fe0de658d25e0e1d44a65f746e2ddf58fce3a8644391ad67fe4805de7f.mp4?has_women=0&speaker_id=872&digest=99386aa5c69f49f76732fe73b462317e1f62584d93d19d5295ca09e613e72bba",
+  "likeCount": 4,
+  "viewCount": 1336
+}

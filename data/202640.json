@@ -1,0 +1,113 @@
+{
+  "date_created": "2022-08-24T18:16:07.000Z",
+  "audio_download_size_string": "6.2 MB",
+  "audio_download_size": 6179652,
+  "auto_display": false,
+  "bitly_audio": "https://mytat.me/a202640",
+  "bitly_video": "https://mytat.me/v202640",
+  "category": 111,
+  "clip_link": null,
+  "clip_parent": null,
+  "clip_title": null,
+  "clipper_email": null,
+  "date_recorded": "2022-08-24",
+  "dedication": null,
+  "display_active": true,
+  "duration": 713,
+  "event_speakers": [
+    857
+  ],
+  "host": 0,
+  "id": 202640,
+  "id_md5": null,
+  "is_clip": null,
+  "is_short": false,
+  "jwplayer_mediaId": "JYSMFKaB",
+  "ladies": false,
+  "language": 1,
+  "lecture_url": null,
+  "location": 2,
+  "media": "202640--____07_03_2022__522122e5-cb73-4ac7-8634-2ddc0f94193c.mp4",
+  "meta_tag": "1d34fe7d7a1373d5166367061998b942088399ed",
+  "no_download": false,
+  "on_recent_list": true,
+  "org": 0,
+  "original_file": "Daniel__Glatstein__08_24_2022__1d34fe7d7a1373d5166367061998b942088399ed.mp4",
+  "phone_system_short_extension": "302639",
+  "private": false,
+  "private_code": null,
+  "published_by": 13925,
+  "published_by_name": "glatsteintat@gmail.com",
+  "slug": "advice-for-yeshiva-students-interview-with-rabbi-berel-wein",
+  "speaker": 105,
+  "subcategory": 117,
+  "text": null,
+  "thumbnail": "2048607195-bf1f9c3ce0634304656624f325a87fc09a6dfac7374dc8ee022469576e810f36-d?region=us",
+  "thumbnail_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/thumbnails/202640/202640-t15p6l.jpg",
+  "title": "Advice For Yeshiva Students - Interview With Rabbi Berel Wein",
+  "title_rtl": false,
+  "desc": null,
+  "video_download_size_string": "38.1MB",
+  "video_download_size": 39947025,
+  "vimeo_video": "vimeo_002---/videos/742772704",
+  "vimeo_video_links": [
+    "https://proxier.torahanytime.com/aHR0cHM6Ly90YS1sZWN0dXJlcy5zMy51cy1lYXN0LTAwNS5iYWNrYmxhemViMi5jb20vbW9iaWxlcmVzLzIwMjY0MC0tX19fXzA3XzAzXzIwMjJfXzUyMjEyMmU1LWNiNzMtNGFjNy04NjM0LTJkZGMwZjk0MTkzYy5tcDQ/415cd826dc56ce055282af018dea582fea2508b5e439f75324a8ff2f00fd2a46.mp4?has_women=0&speaker_id=105&digest=3c28011974e93ebe6d64d57a849b0102cfec91423318939a52dae604584919ad"
+  ],
+  "vimeo_video_links_legacy": [
+    "https://player.vimeo.com/progressive_redirect/playback/742772704/rendition/360p/file.mp4?loc=external&oauth2_token_id=1080790441&signature=f12f7cf814787f3f46c7953b1ca2d6395ca295a6036ba3e2a1bc70e1ea9f8533",
+    "https://player.vimeo.com/external/742772704.m3u8?s=61add3a9cabae14fa1b170ff8dda8d759c960baf&oauth2_token_id=1080790441"
+  ],
+  "vimeo_hash": "d02062cdb4",
+  "box_id": 1000745218120,
+  "publish_by_date": null,
+  "date_to_show": "2022-08-24T18:16:07.000Z",
+  "is_only_watchable_by_female": false,
+  "is_only_listenable_by_female": false,
+  "is_only_discoverable_by_female": false,
+  "is_only_discoverable_within_org": false,
+  "is_not_discoverable": false,
+  "m3u8_url": null,
+  "mp4_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/mobileres/202640--____07_03_2022__522122e5-cb73-4ac7-8634-2ddc0f94193c.mp4",
+  "mp3_url": "https://dl.torahanytime.com/mp3/202640--____07_03_2022__522122e5-cb73-4ac7-8634-2ddc0f94193c.mp4.mp3",
+  "watermarked_original_mp4_url": null,
+  "ragie_document_id": "0332d7fc-ac1c-4f95-90ec-8a9b6f74dcc5",
+  "created_at": "2022-08-24T18:16:07.000Z",
+  "updated_at": "2025-08-17T21:03:59.000Z",
+  "deleted_at": null,
+  "subcategories": [
+    {
+      "id": 117,
+      "name": "Elul",
+      "english_name": null
+    }
+  ],
+  "parent_info": null,
+  "projects": [
+    {
+      "id": 1,
+      "name": "TorahAnytime"
+    }
+  ],
+  "categories": [
+    {
+      "id": 111,
+      "name": "Rosh Chodesh/Jewish Months",
+      "english_name": "rosh chodesh"
+    }
+  ],
+  "language_name": "English",
+  "speaker_name_first": "Daniel",
+  "speaker_name_last": "Glatstein",
+  "speaker_photo": "r-daniel-glatstein_2eb5b66c-da88-4cff-a7ec-e55e1494ba84.jpg",
+  "female": false,
+  "view_female_level": 0,
+  "speaker_no_download": 0,
+  "speaker_title": "Rabbi",
+  "speaker_title_short": "R'",
+  "video_url": "https://ta-lectures.s3.us-east-005.backblazeb2.com/mobileres/202640--____07_03_2022__522122e5-cb73-4ac7-8634-2ddc0f94193c.mp4",
+  "audio_url": "https://dl.torahanytime.com/mp3/202640--____07_03_2022__522122e5-cb73-4ac7-8634-2ddc0f94193c.mp4.mp3",
+  "vimeo_video_id": "742772704",
+  "proxy_mp4_url": "https://proxier.torahanytime.com/aHR0cHM6Ly90YS1sZWN0dXJlcy5zMy51cy1lYXN0LTAwNS5iYWNrYmxhemViMi5jb20vbW9iaWxlcmVzLzIwMjY0MC0tX19fXzA3XzAzXzIwMjJfXzUyMjEyMmU1LWNiNzMtNGFjNy04NjM0LTJkZGMwZjk0MTkzYy5tcDQ/415cd826dc56ce055282af018dea582fea2508b5e439f75324a8ff2f00fd2a46.mp4?has_women=0&speaker_id=105&digest=3c28011974e93ebe6d64d57a849b0102cfec91423318939a52dae604584919ad",
+  "likeCount": 4,
+  "viewCount": 1
+}

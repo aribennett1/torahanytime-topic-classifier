@@ -1,8 +1,3 @@
-# Large data files
-data/
-prepared.json
-topic_embeddings.jsonl
-
 # Python
 __pycache__/
 *.py[cod]
