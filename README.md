@@ -109,7 +109,7 @@ TAT Scraper/
 ├── extract_topic_names.js     # Step 4: Topic extraction
 ├── topics_parser.js           # Step 5: Category parsing
 ├── classifyTopic.gs          # Step 6: Google Apps Script
-├── data/                     # Raw scraped data (~80K files)
+├── data/                     # Raw scraped data (~390,000K files)
 ├── prepared.json             # Processed lecture data
 ├── topic_embeddings.jsonl    # Topic embeddings
 ├── topics.json              # TorahAnytime category structure
