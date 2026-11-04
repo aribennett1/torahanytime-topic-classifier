@@ -5,19 +5,15 @@
  * Failure: {error, manualReviewRequired:true, stopPublishing:true, ...}; NEVER a category.
  * Only title is read from the query string. Date is always today in New York;
  * the production endpoint always uses the diaspora calendar.
- * Script property: CLASSIFIER_ADMIN_EMAIL (required for notifications).
  *
  * Caller MUST abort on error OR absent/invalid category IDs. Apps Script ContentService
  * cannot set a failure HTTP status. The caller must check the JSON response before
  * publishing. No external publishing caller was supplied for end-to-end verification.
  *
- * configureClassifier('admin@example.org') once in the editor, authorize MailApp.
- * A missing/failed mail configuration is reported, never converted to success.
  * Logging: setupClassifierLogs() creates a NEW dedicated spreadsheet, separate from
  * the old classifier. Failure to log a successful classification fails closed.
  * Tests: node classifyTopic.test.cjs (no dependencies, no network).
  * Hebcal contract: https://www.hebcal.com/home/195/jewish-calendar-rest-api
- * MailApp: https://developers.google.com/apps-script/reference/mail/mail-app
  * Unique one-edit textual matches do not require calendar agreement. Calendar is
  * used for competing names and explicit weekly references.
  * Scores below describe evidence, NOT probabilities; 99% precision is not claimed.
@@ -268,46 +264,21 @@ function fetchClassifierCalendar(start,end,israel) {
  if(cache){try{const encoded=JSON.stringify(data);if(Utilities.newBlob(encoded).getBytes().length<95000)cache.put(key,encoded,21600);}catch(err){/* Calendar still valid without cache. */}}
  return data;
 }
-function configureClassifier(email) {
- if(typeof email!=='string'||!/^\S+@\S+\.\S+$/.test(email))throw new Error('Provide administrator email');
- const properties=PropertiesService.getScriptProperties();properties.setProperty('CLASSIFIER_ADMIN_EMAIL',email);
-}
 function classifierDependencies() {
  const today=Utilities.formatDate(new Date(),'America/New_York','yyyy-MM-dd');
  return {calendar:fetchClassifierCalendar,today:function(){return today;}};
 }
-function notificationDigest(text) {
- return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256,text,Utilities.Charset.UTF_8).map(function(b){return ('0'+((b+256)%256).toString(16)).slice(-2);}).join('');
-}
-function notifyClassificationFailure(title,result) {
- const properties=PropertiesService.getScriptProperties(), email=properties.getProperty('CLASSIFIER_ADMIN_EMAIL');
- if(!email)throw new Error('Set CLASSIFIER_ADMIN_EMAIL; manual notification could not be sent');
- const text=typeof title==='string'?title.slice(0,2000):'(invalid title)';
- const key='classification-notice:'+notificationDigest(email+'\n'+normalizeTitle(text)+'\n'+result.reason);
- const cache=classifierCache(),lock=LockService.getScriptLock();
- if(!lock.tryLock(10000))throw new Error('Notification lock unavailable; retry required');
- try {
-  if(cache&&cache.get(key))return 'deduplicated';
-  const suggestions=result.candidates.map(function(t){return t.categoryName+' / '+t.subCategoryName+' (ID '+t.subCategoryId+')';}).join(', ')||'None';
-  MailApp.sendEmail(email,'Manual Classification Required',
-   'Unable to determine the topic and/or subtopic with sufficient confidence.\n\nTitle: '+text+
-   '\n\nSuggested classification: '+suggestions+'\n\nReason: '+result.reason+'\n\nPlease classify this shiur manually.');
-  if(cache){try{cache.put(key,'sent',21600);}catch(err){/* Sent; cache deduplication best effort. */}}
-  return 'sent';
- }finally{lock.releaseLock();}
-}
-/** Shared transport handler, injected notifier used by failure-handling tests. */
-function handleClassification(request,deps,notify,log) {
+/** Shared transport handler; explicit failures and spreadsheet logging. */
+function handleClassification(request,deps,log) {
  let result;
  try{result=classifyTitle(request,deps);}catch(err){result=classificationFailure('Classifier failed: '+err.message);}
  if(result.ok){
   const success=Object.assign({},result.classification);
-  if(log){try{log(request,result,{notification:'not needed'});}catch(err){result=classificationFailure('Classification log failed: '+err.message);}}
+  if(log){try{log(request,result);}catch(err){result=classificationFailure('Classification log failed: '+err.message);}}
   if(result.ok)return success;
  }
  const response={error:result.reason,manualReviewRequired:true,stopPublishing:true,suggestions:result.candidates};
- try{response.notification=notify(request&&request.title,result);}catch(err){response.notification='failed';response.notificationError=err.message;}
- if(log){try{log(request,result,response);}catch(err){response.loggingError=err.message;}}
+ if(log){try{log(request,result);}catch(err){response.loggingError=err.message;}}
  return response;
 }
 /** Creates a dedicated spreadsheet for this classifier only. Stored ID is never
@@ -330,7 +301,7 @@ function setupClassifierLogs() {
   let sheet=book.getSheetByName('Classifications');
   if(!sheet)sheet=book.insertSheet('Classifications');
   if(sheet.getLastRow()===0){
-   sheet.appendRow(['Date','Title','Publication Date','Region','Status','Category ID','Category','Subcategory ID','Subcategory','Certainty','Evidence Score (not probability)','Reason','Suggested classifications','Notification','Notification error']);
+   sheet.appendRow(['Date','Title','Publication Date','Region','Status','Category ID','Category','Subcategory ID','Subcategory','Certainty','Evidence Score (not probability)','Reason','Suggested classifications']);
    sheet.setFrozenRows(1);
   }
   console.log('Classifier logs: '+book.getUrl());return book.getUrl();
@@ -341,7 +312,7 @@ function safeLogCell(value) {
  // Untrusted titles must be logged as text, never evaluated as spreadsheet formulas.
  return /^[=+@\-]/.test(text)?"'"+text:text;
 }
-function logClassification(request,result,response) {
+function logClassification(request,result) {
  setupClassifierLogs();
  const id=PropertiesService.getScriptProperties().getProperty('PARSHACLASSIFIER_LOG_SPREADSHEET_ID');
  const t=result.classification||{},r=request||{};
@@ -349,8 +320,7 @@ function logClassification(request,result,response) {
   r.israel===true?'Israel':r.israel===false?'Diaspora':'Require agreement',
   result.ok?'success':'manual review',t.categoryId||'',safeLogCell(t.categoryName),t.subCategoryId||'',safeLogCell(t.subCategoryName),
   result.certainty||'',result.evidenceScore||'',safeLogCell(result.reason),
-  safeLogCell((result.candidates||[]).map(function(c){return c.subCategoryName;}).join(', ')),
-  response.notification||'',safeLogCell(response.notificationError)];
+  safeLogCell((result.candidates||[]).map(function(c){return c.subCategoryName;}).join(', '))];
  const lock=LockService.getScriptLock();lock.waitLock(10000);
  try{SpreadsheetApp.openById(id).getSheetByName('Classifications').appendRow(values);}finally{lock.releaseLock();}
 }
@@ -359,7 +329,7 @@ function doGet(e) {
  const params=e&&e.parameter||{};
  const dependencies=classifierDependencies();
  const request={title:params.title,publicationDate:dependencies.today(),israel:false};
- const response=handleClassification(request,dependencies,notifyClassificationFailure,logClassification);
+ const response=handleClassification(request,dependencies,logClassification);
  return ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON);
 }
 // GENERATED DATA: deterministic textual verification, quarantined conflicts, grouped

@@ -28,7 +28,7 @@ and historical labels. Shows a suggested classification, alternatives, or Ambigu
 During review:
   NUMBER        Pick a displayed choice for the displayed group.
   id:NUMBER     Assign any existing subtopic ID (use ? to list taxonomy).
-  a             Mark group ambiguous; production will fail and notify administrator.
+  a             Mark group ambiguous; production will return an explicit classification failure.
   s             Skip for now (will appear next run).
   t             Review this group's titles individually.
   l             List all titles in this group.
