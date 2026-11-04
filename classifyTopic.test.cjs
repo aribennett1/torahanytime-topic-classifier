@@ -5,7 +5,7 @@
  * Linguistic cases below were independently specified from canonical names/concepts.
  * Holdout clusters group spelling aliases, punctuation, numbering, and case before
  * splitting. A further empty-lookup VM tests rules/fuzzy generalization independently.
- * Publishing caller not supplied: gate tests prove local stopping, not remote wiring.
+ * Publishing caller not supplied: JSON failures are tested, remote wiring is not.
  */
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict'),crypto=require('node:crypto');
 const source=fs.readFileSync(path.join(__dirname,'classifyTopicNew.gs'),'utf8');
@@ -30,7 +30,7 @@ function environment(emptyLookup=false){
    openById:id=>{if(failSheets)throw Error('Sheets unavailable');assert.ok(books.has(id),'Only dedicated classifier spreadsheet may be opened');return books.get(id);}}
  };
  vm.createContext(context);vm.runInContext(source,context,{filename:'classifyTopic.gs'});
- vm.runInContext('this.api={classifyTitle,handleClassification,deterministicClassification,normalizeTitle,spellingDistance,fuzzyCandidates,textualEvidence,doPost,requireClassification,configureClassifier,setupClassifierLogs,notifyClassificationFailure,fetchClassifierCalendar,logClassification,safeLogCell,taxonomy:CLASSIFIER_TAXONOMY,entries:CLASSIFIER_ENTRIES,verified:VERIFIED_TITLES,unverified:UNVERIFIED_TITLES};',context);
+ vm.runInContext('this.api={classifyTitle,handleClassification,deterministicClassification,normalizeTitle,spellingDistance,fuzzyCandidates,textualEvidence,doGet,configureClassifier,setupClassifierLogs,notifyClassificationFailure,fetchClassifierCalendar,logClassification,safeLogCell,taxonomy:CLASSIFIER_TAXONOMY,entries:CLASSIFIER_ENTRIES,verified:VERIFIED_TITLES,unverified:UNVERIFIED_TITLES};',context);
  if(emptyLookup)vm.runInContext('Object.keys(VERIFIED_TITLES).forEach(k=>delete VERIFIED_TITLES[k]);Object.keys(UNVERIFIED_TITLES).forEach(k=>delete UNVERIFIED_TITLES[k]);',context);
  return {api:context.api,properties,cache,mails,logs,fetches,created:()=>created,setFetch:data=>fetchData=data,failMail:()=>failMail=true,failSheets:()=>failSheets=true,failFetch:()=>failFetch=true};
 }
@@ -80,12 +80,14 @@ test('malformed response event',()=>expectFailure("This Week's Parsha",{calendar
 test('explicit names ignore calendar/date',()=>expectId('Megillas Esther — unexpected lecture',36,{calendar:forbidden},{publicationDate:'2026-08-01'}));
 // Administrator-approved historical conflict is intentionally NOT in verified lookup.
 const disputed='Parashat Vayeira Strength of Torah';
+// Isolate this scenario from administrator review decisions in the live dataset.
+const tieApi=environment(true).api;tieApi.unverified[tieApi.normalizeTitle(disputed)]='vayeira-tie';
 function tieCalendar(vayeira,vaeira){return fixedCalendar([parsha('Vayeira',vayeira),parsha("Va'eira",vaeira)]);}
-test('Vayeira tie chooses nearer future',()=>{const r=production.api.classifyTitle({title:disputed},{today:()=> '2026-11-04',calendar:tieCalendar('2026-11-07','2027-01-09')});assert.equal(r.classification.subCategoryId,48);assert.equal(r.certainty,'inferred');});
-test('Vaeira tie chooses nearer past',()=>{const r=production.api.classifyTitle({title:disputed,publicationDate:'2026-11-04'},{today:()=> '2027-01-12',calendar:tieCalendar('2026-11-07','2027-01-09')});assert.equal(r.classification.subCategoryId,58);});
-test('equidistant tie fails',()=>assert.equal(production.api.classifyTitle({title:disputed},{today:()=> '2026-12-09',calendar:tieCalendar('2026-12-01','2026-12-17')}).ok,false));
-test('tie calendar missing fails',()=>assert.equal(production.api.classifyTitle({title:disputed},{today:()=> '2026-11-04'}).ok,false));
-test('tie needs both readings',()=>assert.equal(production.api.classifyTitle({title:disputed},{today:()=> '2026-11-04',calendar:fixedCalendar([parsha('Vayeira','2026-11-07')])}).ok,false));
+test('Vayeira tie chooses nearer future',()=>{const r=tieApi.classifyTitle({title:disputed},{today:()=> '2026-11-04',calendar:tieCalendar('2026-11-07','2027-01-09')});assert.equal(r.classification.subCategoryId,48);assert.equal(r.certainty,'inferred');});
+test('Vaeira tie chooses nearer past',()=>{const r=tieApi.classifyTitle({title:disputed,publicationDate:'2026-11-04'},{today:()=> '2027-01-12',calendar:tieCalendar('2026-11-07','2027-01-09')});assert.equal(r.classification.subCategoryId,58);});
+test('equidistant tie fails',()=>assert.equal(tieApi.classifyTitle({title:disputed},{today:()=> '2026-12-09',calendar:tieCalendar('2026-12-01','2026-12-17')}).ok,false));
+test('tie calendar missing fails',()=>assert.equal(tieApi.classifyTitle({title:disputed},{today:()=> '2026-11-04'}).ok,false));
+test('tie needs both readings',()=>assert.equal(tieApi.classifyTitle({title:disputed},{today:()=> '2026-11-04',calendar:fixedCalendar([parsha('Vayeira','2026-11-07')])}).ok,false));
 test('clear Vayeira stays explicit',()=>expectId('Parshas Vayeira — Unambiguous new title',48,{today:()=> '2027-01-12',calendar:forbidden}));
 test('clear Vaeira stays explicit',()=>expectId("Parshas Va'eira — Unambiguous new title",58,{today:()=> '2026-11-04',calendar:forbidden}));
 // Transport, email, logs and publishing gate use Apps Script mocks, no live effects.
@@ -93,14 +95,12 @@ test('failure invokes notifier and logger',()=>{let notices=0,rows=0;const out=a
 test('notifier failure is exposed',()=>{const out=api.handleClassification({title:'Meaning of Freedom'},{},()=>{throw Error('Quota');});assert.equal(out.notification,'failed');assert.equal(out.stopPublishing,true);});
 test('success log failure fails closed',()=>{const out=api.handleClassification({title:'Haggadah'}, {},()=> 'sent',()=>{throw Error('No sheet');});assert.equal(out.categoryId,undefined);assert.equal(out.stopPublishing,true);});
 test('dedicated spreadsheet created exactly once',()=>{const e=environment();e.api.setupClassifierLogs();e.api.setupClassifierLogs();assert.equal(e.created(),1);assert.equal(e.logs.length,1);assert.equal(e.properties.get('PARSHACLASSIFIER_LOG_SPREADSHEET_ID'),'new-classifier-1');});
-test('POST success has exact existing four fields and new log',()=>{const e=environment(true);const out=JSON.parse(e.api.doPost({postData:{contents:JSON.stringify({title:'Haggadah'})}}).text);same(out,{categoryId:8,categoryName:'Holidays',subCategoryId:37,subCategoryName:'Pesach/Passover'});assert.equal(e.logs.length,2);assert.equal(e.logs[1][4],'success');assert.equal(e.fetches.length,0);});
-test('POST failure sends one email but logs every retry',()=>{const e=environment();for(let i=0;i<2;i++){const out=JSON.parse(e.api.doPost({postData:{contents:JSON.stringify({title:'Unknown qwxz'})}}).text);assert.equal(out.stopPublishing,true);assert.equal(out.categoryId,undefined);}assert.equal(e.mails.length,1);assert.equal(e.logs.length,3);assert.equal(e.logs[2][13],'deduplicated');assert.equal(e.mails[0][1],'Manual Classification Required');});
+test('GET response shape has exact existing four fields and new log',()=>{const e=environment(true);const out=JSON.parse(e.api.doGet({parameter:{title:'Haggadah'}}).text);same(out,{categoryId:8,categoryName:'Holidays',subCategoryId:37,subCategoryName:'Pesach/Passover'});assert.equal(e.logs.length,2);assert.equal(e.logs[1][4],'success');assert.equal(e.fetches.length,0);});
+test('GET failure sends one email but logs every retry',()=>{const e=environment();for(let i=0;i<2;i++){const out=JSON.parse(e.api.doGet({parameter:{title:'Unknown qwxz'}}).text);assert.equal(out.stopPublishing,true);assert.equal(out.categoryId,undefined);}assert.equal(e.mails.length,1);assert.equal(e.logs.length,3);assert.equal(e.logs[2][13],'deduplicated');assert.equal(e.mails[0][1],'Manual Classification Required');});
 test('failed email retries instead of deduplicating',()=>{const e=environment();e.failMail();const r={ok:false,reason:'uncertain',candidates:[]};assert.throws(()=>e.api.notifyClassificationFailure('unknown',r),/Mail quota/);assert.equal(e.cache.size,0);});
-test('missing admin reported',()=>{const e=environment();e.properties.delete('CLASSIFIER_ADMIN_EMAIL');const out=JSON.parse(e.api.doPost({postData:{contents:'{"title":"qwxz"}'}}).text);assert.equal(out.notification,'failed');assert.match(out.notificationError,/CLASSIFIER_ADMIN_EMAIL/);assert.equal(out.stopPublishing,true);});
-test('malformed POST fails and logs',()=>{const e=environment();const out=JSON.parse(e.api.doPost({postData:{contents:'broken'}}).text);assert.equal(out.stopPublishing,true);assert.equal(e.mails.length,1);assert.equal(e.logs.length,2);});
-test('publishing gate throws before publication',()=>{const e=environment();let published=false;assert.throws(()=>{const t=e.api.requireClassification({title:'qwxz'});published=!!t;});assert.equal(published,false);});
-test('publishing gate permits definite classification',()=>{const e=environment(true);assert.equal(e.api.requireClassification({title:'Haggadah'}).subCategoryId,37);});
-test('formula injection escaped',()=>{const e=environment();e.api.doPost({postData:{contents:'{"title":"=IMPORTXML(1)"}'}});assert.equal(e.logs[1][1],"'=IMPORTXML(1)");for(const v of ['+cmd','-cmd','@cmd'])assert.equal(e.api.safeLogCell(v),"'"+v);});
+test('missing admin reported',()=>{const e=environment();e.properties.delete('CLASSIFIER_ADMIN_EMAIL');const out=JSON.parse(e.api.doGet({parameter:{title:'qwxz'}}).text);assert.equal(out.notification,'failed');assert.match(out.notificationError,/CLASSIFIER_ADMIN_EMAIL/);assert.equal(out.stopPublishing,true);});
+test('missing GET parameters fails and logs',()=>{const e=environment();const out=JSON.parse(e.api.doGet({}).text);assert.equal(out.stopPublishing,true);assert.equal(e.mails.length,1);assert.equal(e.logs.length,2);});
+test('formula injection escaped',()=>{const e=environment();e.api.doGet({parameter:{title:'=IMPORTXML(1)'}});assert.equal(e.logs[1][1],"'=IMPORTXML(1)");for(const v of ['+cmd','-cmd','@cmd'])assert.equal(e.api.safeLogCell(v),"'"+v);});
 test('Hebcal request cached and region keyed',()=>{const e=environment();const start='2026-02-09',end='2026-03-02';e.setFetch({range:{start,end},items:[parsha('Mishpatim','2026-02-14')]});e.api.fetchClassifierCalendar(start,end,false);e.api.fetchClassifierCalendar(start,end,false);e.api.fetchClassifierCalendar(start,end,true);assert.equal(e.fetches.length,2);assert.match(e.fetches[0],/i=off/);assert.match(e.fetches[1],/i=on/);assert.match(e.fetches[0],/start=2026-02-09/);});
 test('corrupt calendar cache is refetched',()=>{const e=environment(),start='2026-02-09',end='2026-03-02';e.cache.set('parsha-calendar-v1:'+start+':'+end+':false','broken');e.setFetch({range:{start,end},items:[]});e.api.fetchClassifierCalendar(start,end,false);assert.equal(e.fetches.length,1);});
 test('calendar network outage fails closed',()=>{const e=environment();e.failFetch();const out=e.api.handleClassification({title:"This Week's Parsha",publicationDate:'2026-02-09'}, {calendar:e.api.fetchClassifierCalendar},()=> 'sent');assert.equal(out.stopPublishing,true);});
@@ -159,7 +159,7 @@ test('repeated dates for one fuzzy holiday remain one candidate',()=>{
  expectId('Hilchos Chanukha',33,{calendar:fixedCalendar([holiday('Chanukah I','2026-12-05'),holiday('Chanukah II','2026-12-06')])},{publicationDate:'2026-11-20'});
 });
 test('weak two-edit suggestion refuses without calendar',()=>{let calls=0;const title='Parshas Mishpatzz';assert.ok(api.fuzzyCandidates(api.normalizeTitle(title)).length);expectFailure(title,{calendar:(s,e)=>{calls++;return fixedCalendar([parsha('Mishpatim','2026-02-14')])(s,e);}},{publicationDate:'2026-02-09'});assert.equal(calls,0);});
-test('log failure sends administrator notification',()=>{const e=environment(true);e.failSheets();const out=JSON.parse(e.api.doPost({postData:{contents:'{"title":"Haggadah"}'}}).text);assert.equal(out.stopPublishing,true);assert.equal(e.mails.length,1);assert.equal(out.categoryId,undefined);});
+test('log failure sends administrator notification',()=>{const e=environment(true);e.failSheets();const out=JSON.parse(e.api.doGet({parameter:{title:'Haggadah'}}).text);assert.equal(out.stopPublishing,true);assert.equal(e.mails.length,1);assert.equal(out.categoryId,undefined);});
 test('standalone Parsha typo generates a candidate',()=>{
  const candidates=api.fuzzyCandidates('chaya sara');
  assert.ok(candidates.some(c=>c.id===49&&c.distance===1));
@@ -206,4 +206,35 @@ test('same spelling tie can resolve to other candidate',()=>expectId('vaiera',58
 test('calendar cannot resolve spelling tie with unrelated reading',()=>expectFailure('vaiera',{calendar:fixedCalendar([parsha('Noach','2026-11-07')])},{publicationDate:'2026-11-04'}));
 test('canonical Vayakhel wins over harvested conflict',()=>{const r=production.api.classifyTitle({title:'vayakhel'},{calendar:forbidden});assert.equal(r.classification.subCategoryId,66);assert.equal(r.certainty,'definite');});
 test('canonical combined Vayakhel-Pekudei remains combined',()=>{const r=production.api.classifyTitle({title:'vayakhel-pekudei'},{calendar:forbidden});assert.equal(r.classification.subCategoryId,224);assert.equal(r.certainty,'definite');});
+test('GET title query returns classification and logs',()=>{
+ const e=environment(true);const out=JSON.parse(e.api.doGet({parameter:{title:'Parshas Breishis'}}).text);
+ assert.equal(out.subCategoryId,45);assert.equal(e.logs.length,2);assert.equal(e.mails.length,0);
+});
+test('GET respects already decoded Unicode and punctuation',()=>{
+ const e=environment(true);const out=JSON.parse(e.api.doGet({parameter:{title:'פרשת בראשית'}}).text);assert.equal(out.subCategoryId,45);
+ const second=JSON.parse(e.api.doGet({parameter:{title:'Parshas Ki Sisa'}}).text);assert.equal(second.subCategoryId,65);
+});
+test('GET missing title fails explicitly and notifies',()=>{
+ const e=environment();const out=JSON.parse(e.api.doGet({parameter:{}}).text);assert.equal(out.stopPublishing,true);assert.equal(out.categoryId,undefined);assert.equal(e.mails.length,1);assert.equal(e.logs.length,2);
+});
+test('GET without event fails safely',()=>{const e=environment();assert.equal(JSON.parse(e.api.doGet().text).stopPublishing,true);});
+test('GET always uses today and diaspora, ignoring query configuration',()=>{
+ const e=environment(true);
+ e.properties.set('CLASSIFIER_ISRAEL','true');
+ e.properties.set('CLASSIFIER_TIMEZONE','Asia/Jerusalem');
+ e.setFetch({range:{start:'2026-11-07',end:'2026-11-07'},items:[parsha('Chayei Sara','2026-11-07')]});
+ const out=JSON.parse(e.api.doGet({parameter:{title:"This Week's Parsha",publicationDate:'2026-02-09',israel:'true'}}).text);
+ assert.equal(out.subCategoryId,49);assert.equal(e.fetches.length,1);
+ assert.match(e.fetches[0],/i=off/);assert.match(e.fetches[0],/start=2026-11-04/);
+ assert.equal(e.logs[1][2],'2026-11-04');assert.equal(e.logs[1][3],'Diaspora');
+});
+test('irrelevant query parameters do not affect title classification',()=>{
+ const e=environment(true);const out=JSON.parse(e.api.doGet({parameter:{title:'Haggadah',israel:'invalid',publicationDate:'invalid'}}).text);
+ assert.equal(out.subCategoryId,37);
+});
+test('POST entry point and region configuration are absent',()=>{
+ assert.equal(/function doPost\(/.test(source),false);
+ assert.equal(source.includes('CLASSIFIER_ISRAEL'),false);
+ assert.equal(source.includes('CLASSIFIER_TIMEZONE'),false);
+});
 console.log(JSON.stringify({passed:assertions,historical:HISTORICAL.length,heuristicHoldout:{accepted:heuristicAccepted,wrong:heuristicWrong,refused:heuristicRefused},holdout:{total:HOLDOUT.length,accepted:holdoutAccepted,refused:holdoutRefused,wrong:holdoutWrong},quarantined:Object.keys(production.api.unverified).length,audit:AUDIT,precisionNote:'Historical and rule-derived holdout labels are consistency checks. Independent synthetic cases test generalization, but no empirical 99% field precision claim is made.'},null,2));

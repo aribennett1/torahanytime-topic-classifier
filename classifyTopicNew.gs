@@ -1,21 +1,17 @@
 /**
  * Deterministic Parsha / Yom Tov classifier. No inference service or Drive files.
  * Existing wire contract (the implementation, not the old comment):
- * POST {title: string} -> {categoryId, categoryName, subCategoryId, subCategoryName}
+ * GET /exec?title=Parshas%20Breishis -> {categoryId, categoryName, subCategoryId, subCategoryName}
  * Failure: {error, manualReviewRequired:true, stopPublishing:true, ...}; NEVER a category.
- * Optional POST fields: publicationDate (YYYY-MM-DD), israel (boolean).
- * Script properties: CLASSIFIER_ADMIN_EMAIL (required for notifications),
- * CLASSIFIER_ISRAEL ('true' or 'false', optional). If neither request nor property
- * specifies Israel/diaspora, calendar inference requires agreement between both.
- * CLASSIFIER_TIMEZONE defaults to America/New_York; used only for the administrator's
- * requested Vayeira/Va'eira tie against NOW. Other calendar logic uses publicationDate.
+ * Only title is read from the query string. Date is always today in New York;
+ * the production endpoint always uses the diaspora calendar.
+ * Script property: CLASSIFIER_ADMIN_EMAIL (required for notifications).
  *
  * Caller MUST abort on error OR absent/invalid category IDs. Apps Script ContentService
- * cannot set a failure HTTP status. requireClassification() provides a throwing gate
- * for an Apps Script publishing caller. No external publishing caller was supplied,
- * so end-to-end publication stopping has NOT been verified.
+ * cannot set a failure HTTP status. The caller must check the JSON response before
+ * publishing. No external publishing caller was supplied for end-to-end verification.
  *
- * configureClassifier('admin@example.org', false) once in the editor, authorize MailApp.
+ * configureClassifier('admin@example.org') once in the editor, authorize MailApp.
  * A missing/failed mail configuration is reported, never converted to success.
  * Logging: setupClassifierLogs() creates a NEW dedicated spreadsheet, separate from
  * the old classifier. Failure to log a successful classification fails closed.
@@ -272,16 +268,13 @@ function fetchClassifierCalendar(start,end,israel) {
  if(cache){try{const encoded=JSON.stringify(data);if(Utilities.newBlob(encoded).getBytes().length<95000)cache.put(key,encoded,21600);}catch(err){/* Calendar still valid without cache. */}}
  return data;
 }
-function configureClassifier(email,israel) {
+function configureClassifier(email) {
  if(typeof email!=='string'||!/^\S+@\S+\.\S+$/.test(email))throw new Error('Provide administrator email');
  const properties=PropertiesService.getScriptProperties();properties.setProperty('CLASSIFIER_ADMIN_EMAIL',email);
- if(typeof israel==='boolean')properties.setProperty('CLASSIFIER_ISRAEL',String(israel));
 }
 function classifierDependencies() {
- return {calendar:fetchClassifierCalendar,today:function(){
-  const zone=PropertiesService.getScriptProperties().getProperty('CLASSIFIER_TIMEZONE')||'America/New_York';
-  return Utilities.formatDate(new Date(),zone,'yyyy-MM-dd');
- }};
+ const today=Utilities.formatDate(new Date(),'America/New_York','yyyy-MM-dd');
+ return {calendar:fetchClassifierCalendar,today:function(){return today;}};
 }
 function notificationDigest(text) {
  return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256,text,Utilities.Charset.UTF_8).map(function(b){return ('0'+((b+256)%256).toString(16)).slice(-2);}).join('');
@@ -361,23 +354,13 @@ function logClassification(request,result,response) {
  const lock=LockService.getScriptLock();lock.waitLock(10000);
  try{SpreadsheetApp.openById(id).getSheetByName('Classifications').appendRow(values);}finally{lock.releaseLock();}
 }
-function doPost(e) {
- let request;
- try {
-  request=JSON.parse(e.postData.contents);
-  if(request&&typeof request==='object'&&request.israel===undefined){
-   const region=PropertiesService.getScriptProperties().getProperty('CLASSIFIER_ISRAEL');
-   if(region==='true'||region==='false')request.israel=region==='true';
-  }
- }catch(err){request=null;}
- const response=handleClassification(request,classifierDependencies(),notifyClassificationFailure,logClassification);
+/** GET /exec?title=Parshas%20Breishis. Only title is configurable. */
+function doGet(e) {
+ const params=e&&e.parameter||{};
+ const dependencies=classifierDependencies();
+ const request={title:params.title,publicationDate:dependencies.today(),israel:false};
+ const response=handleClassification(request,dependencies,notifyClassificationFailure,logClassification);
  return ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON);
-}
-/** Publishing gate: call before creating/uploading/publishing anything. */
-function requireClassification(request) {
- const response=handleClassification(request,classifierDependencies(),notifyClassificationFailure,logClassification);
- if(response.error||!response.categoryId||!response.subCategoryId)throw new Error(response.error||'Missing category identifiers');
- return response;
 }
 // GENERATED DATA: deterministic textual verification, quarantined conflicts, grouped
 // near-duplicate holdout. Audit provenance and frozen expected labels live in tests.
