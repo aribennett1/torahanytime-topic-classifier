@@ -43,7 +43,7 @@ node prepareForEmbedding.js
 
 **Creates**: `prepared.json` with ~1.5M processed lecture entries
 
-### 3. Embedding Generation (`createEmbeddings.py`)
+### 3. Embedding Generation (`createTopicEmbeddings.py`)
 
 - **Purpose**: Creates semantic embeddings for unique topics
 - **Model**: `intfloat/multilingual-e5-large` (supports Hebrew and English)
@@ -54,7 +54,7 @@ node prepareForEmbedding.js
 - **Output**: `topic_embeddings.jsonl`
 
 ```bash
-python3 createEmbeddings.py
+python3 createTopicEmbeddings.py
 ```
 
 **Creates**: `topic_embeddings.jsonl` with 295 unique topic embeddings
@@ -105,7 +105,7 @@ node topics_parser.js | pbcopy
 TAT Scraper/
 ├── scraper.js                 # Step 1: Data scraping
 ├── prepareForEmbedding.js     # Step 2: Data preparation
-├── createEmbeddings.py        # Step 3: Embedding generation
+├── createTopicEmbeddings.py   # Step 3: Embedding generation
 ├── extract_topic_names.js     # Step 4: Topic extraction
 ├── topics_parser.js           # Step 5: Category parsing
 ├── classifyTopic.gs          # Step 6: Google Apps Script

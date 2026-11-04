@@ -3,3 +3,6 @@ venv/
 
 # OS
 .DS_Store
+
+# Generated title embeddings (too large for GitHub)
+/title_embeddings.jsonl
