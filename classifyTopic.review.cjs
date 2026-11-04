@@ -111,10 +111,11 @@ function buildGroups(api, labels, state, options) {
       const textual = [...api.textualEvidence(title)].sort((a,b) => a-b);
       const fuzzy = api.fuzzyCandidates(title);
       const strongest = fuzzy.filter(c => c.distance === 1);
-      const suggestion = direct.ok ? direct.classification.subCategoryId : textual.length === 0 && strongest.length === 1 ? strongest[0].id : null;
+      const soleReference = textual.length === 1 && direct.reason === 'Parsha name without an explicit Parsha marker';
+      const suggestion = direct.ok ? direct.classification.subCategoryId : soleReference ? textual[0] : textual.length === 0 && strongest.length === 1 ? strongest[0].id : null;
       const historical = [...(labels.get(title) || [])].sort((a,b) => a-b);
       const key = JSON.stringify([reason, suggestion, textual, historical, strongest.map(c=>c.id).sort((a,b)=>a-b)]);
-      if (!groups.has(key)) groups.set(key, { reason, suggestion, evidence: direct.ok ? direct.reason : suggestion ? 'Unique one-edit textual match' : 'No unambiguous textual suggestion', textual, historical, fuzzy: fuzzy.map(c=>c.id), titles: [], automatic: automatic.ok });
+      if (!groups.has(key)) groups.set(key, { reason, suggestion, evidence: direct.ok ? direct.reason : soleReference ? 'One explicit name, but no Parsha marker; reviewer confirmation required' : suggestion ? 'Unique one-edit textual match' : 'No unambiguous textual suggestion', textual, historical, fuzzy: fuzzy.map(c=>c.id), titles: [], automatic: automatic.ok });
       groups.get(key).titles.push(title);
     }
   }
@@ -156,8 +157,8 @@ function applyDecisions(options, state, source, api) {
   }
   for (const groups of [verified,unverified]) for (const key of Object.keys(groups)) groups[key] = [...new Set(groups[key])].sort();
   // Replace only the generated data declarations; preserve the current logic verbatim.
-  const updated = source.replace(/^const VERIFIED_GROUPS = .*;$/m, 'const VERIFIED_GROUPS = ' + JSON.stringify(verified) + ';')
-    .replace(/^const UNVERIFIED_GROUPS = .*;$/m, 'const UNVERIFIED_GROUPS = ' + JSON.stringify(unverified) + ';');
+  const updated = source.replace(/^const VERIFIED_GROUPS = .*;$/m, () => 'const VERIFIED_GROUPS = ' + JSON.stringify(verified) + ';')
+    .replace(/^const UNVERIFIED_GROUPS = .*;$/m, () => 'const UNVERIFIED_GROUPS = ' + JSON.stringify(unverified) + ';');
   if (updated === source) { console.log('Decisions already applied.'); return; }
   const check = vm.createContext({ console }); vm.runInContext(updated, check);
   for (const [title, decision] of Object.entries(state.decisions)) {
