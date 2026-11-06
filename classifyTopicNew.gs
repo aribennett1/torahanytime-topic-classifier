@@ -79,21 +79,41 @@ function hasAttachedParshaName(text,entry) {
  const marker='(?:parshas|parshat|parashas|parashat|parsha|parashah|parasha|פרשת|פרשה)';
  return entry.aliases.some(function(alias){return new RegExp('(?:^| )'+marker+' '+alias+'(?: |$)').test(text);});
 }
+/** Recognize heading metadata without searching arbitrary prose for names.
+ * TMT is an observed series label; Hebrew/Gregorian years are trailing metadata.
+ * The remaining heading must match a complete supported Parsha name.
+ */
+function stripParshaHeadingMetadata(text) {
+ return text.replace(/^tmt /,'').replace(/ (?:5[0-9]{3}|20[0-9]{2})$/,'');
+}
+function isParshaHeading(text,entry) {
+ return entry.aliases.indexOf(stripParshaHeadingMetadata(text))!==-1;
+}
 function deterministicClassification(text) {
  const ids=textualEvidence(text);
  if(/(?:pesach|passover) (?:sheini|sheni)|purim katan/.test(text))return classificationFailure('Named observance is unsupported by taxonomy',ids);
  if(ids.length!==1)return classificationFailure(ids.length?'Competing or unsupported combined references':'No distinctive textual reference',ids);
  const id=ids[0], t=classificationTaxon(id), entry=CLASSIFIER_ENTRIES.find(function(e){return e.taxon.subCategoryId===id;});
- // A person's name, a book title or an ordinary Hebrew word alone in prose is
- // insufficient to establish a Parsha. Require a marker or a title consisting of it.
- if(t.categoryId===23 && !hasAttachedParshaName(text,entry) && !entry.aliases.includes(text) && !CLASSIFIER_COMBINATIONS.some(function(c){return c[0]===id;}))
+ // Scan clear names anywhere; very short words still require an explicit marker
+ // or a complete heading to avoid matching ordinary Hebrew/English prose.
+ const substantiveName=entry.aliases.some(function(alias){return hasPhrase(text,alias)&&(alias.indexOf(' ')!==-1||alias.length>=4);});
+ if(t.categoryId===23 && !substantiveName && !hasAttachedParshaName(text,entry) && !isParshaHeading(text,entry) && !CLASSIFIER_COMBINATIONS.some(function(c){return c[0]===id;}))
   return classificationFailure('Parsha name without an explicit Parsha marker',ids);
  // Omer alone often names a person; require the distinctive counting phrase.
  if(id===38 && !/^(omer)$/.test(text) && !/sefir(?:at|as) haomer|ספירת העומר/.test(text))
   return classificationFailure('Omer reference is not distinctive',ids);
  const spelling=fuzzyCandidates(text);
- if(t.categoryId===23&&spelling.length&&spelling[0].distance>0&&spelling.some(function(candidate){return candidate.distance===1&&candidate.id!==id;}))
-  return classificationFailure('Competing explicit and misspelled Parsha references',ids.concat(spelling.map(function(c){return c.id;})));
+ // A near spelling of the SAME occurrence is weaker than an exact match. A
+ // different name elsewhere in the title is a real competing reference.
+ const exactSpans=[],words=text.split(' ');
+ const phrases=entry.aliases.concat(CLASSIFIER_CONCEPTS.filter(function(c){return c[0]===id;}).flatMap(function(c){return c[1].split('|').map(normalizeTitle);}));
+ phrases.forEach(function(phrase){const size=phrase.split(' ').length;for(let start=0;start+size<=words.length;start++){
+  if(words.slice(start,start+size).join(' ')===phrase)exactSpans.push({start:start,end:start+size});
+ }});
+ const rivals=spelling.filter(function(c){return c.id!==id&&c.distance===1&&(c.spans||[]).some(function(span){
+  return !exactSpans.some(function(exact){return span.start<exact.end&&span.end>exact.start;});
+ });});
+ if(rivals.length)return classificationFailure('Competing exact and fuzzy topic references',[id].concat(rivals.map(function(c){return c.id;})));
  return classificationSuccess(id,'definite','Unambiguous explicit name or distinctive concept',100);
 }
 /** Adjacent transposition counts as one edit (optimal string alignment). */
@@ -107,12 +127,12 @@ function spellingDistance(a,b) {
  }
  return d[a.length][b.length];
 }
-function fuzzyCandidates(text) {
+function localFuzzySuggestions(text) {
  // Match names following a Parsha/holiday marker, or standalone names of either kind.
  // Compare equal-sized token windows; prose after the name is never a fuzzy target.
  const parsha=text.match(/(?:^| )(?:parshas|parshat|parashas|parashat|parsha|parashah|parasha) (.+)$/);
  const holiday=text.match(/(?:^| )(?:holiday|yom tov|hilchos|hilchot|hilchas|laws of) (.+)$/);
- const tail=parsha?parsha[1]:holiday?holiday[1]:text;
+ const tail=parsha?parsha[1]:holiday?holiday[1]:stripParshaHeadingMetadata(text);
  const tokens=tail.split(' '),results=[];
  CLASSIFIER_ENTRIES.forEach(function(e){
   if(parsha&&e.taxon.categoryId!==23||holiday&&e.taxon.categoryId!==8)return;
@@ -129,6 +149,61 @@ function fuzzyCandidates(text) {
   if(distance<=2)results.push({id:e.taxon.subCategoryId,distance:distance});
  });
  return results.sort(function(a,b){return a.distance-b.distance;});
+}
+/** One-edit index for matching names anywhere, on whole-token boundaries.
+ * Deletion signatures retrieve substitution/insertion/deletion candidates; adjacent
+ * swaps handle transpositions. No regex substring matching inside ordinary words.
+ */
+const CLASSIFIER_FUZZY_CONTEXT_WORDS=new Set('torah parsha parshas parshat parashat parashah shiur lesson weekly shabbos shabbat learning learn meaning freedom story stories insights inspiration rabbi rebbe hashem sarah sara moshe moses gemara mishna mishnah halacha'.split(' '));
+const CLASSIFIER_FUZZY_INDEX=(function(){
+ const exact=new Map(),deleted=new Map(),sizes=new Set(),lengths=new Map();
+ CLASSIFIER_ENTRIES.forEach(function(entry){
+  if(CLASSIFIER_COMBINATIONS.some(function(c){return c[0]===entry.taxon.subCategoryId;}))return;
+  entry.aliases.forEach(function(alias){
+   if(!/^[a-z\u05d0-\u05ea ]+$/.test(alias)||alias.replace(/ /g,'').length<5)return;
+   const size=alias.split(' ').length,record={id:entry.taxon.subCategoryId,alias:alias};
+   sizes.add(size);if(!lengths.has(size))lengths.set(size,new Set());lengths.get(size).add(alias.length);
+   if(!exact.has(alias))exact.set(alias,[]);exact.get(alias).push(record);
+   for(let i=0;i<alias.length;i++){
+    const signature=alias.slice(0,i)+alias.slice(i+1);
+    if(!deleted.has(signature))deleted.set(signature,[]);deleted.get(signature).push(record);
+   }
+  });
+ });
+ return {exact:exact,deleted:deleted,sizes:Array.from(sizes),lengths:lengths};
+})();
+function fuzzyCandidates(text) {
+ const index=CLASSIFIER_FUZZY_INDEX,tokens=text.split(' '),results=new Map();
+ function add(records,distance,start,end,phrase){
+  (records||[]).forEach(function(record){
+   if(distance===1){
+    // Short Parsha typos collide with ordinary words (coach/Noach, maths/Matos).
+    if(record.alias.replace(/ /g,'').length<6&&classificationTaxon(record.id).categoryId===23&&!parshaMarker(text))return;
+    if(spellingDistance(phrase,record.alias)!==1)return;
+   }
+   let result=results.get(record.id);
+   if(!result||distance<result.distance){result={id:record.id,distance:distance,spans:[]};results.set(record.id,result);}
+   if(distance===result.distance&&!result.spans.some(function(span){return span.start===start&&span.end===end;}))result.spans.push({start:start,end:end});
+  });
+ }
+ index.sizes.forEach(function(size){
+  for(let start=0;start+size<=tokens.length;start++){
+   const phrase=tokens.slice(start,start+size).join(' '),end=start+size;
+   if(size===1&&CLASSIFIER_FUZZY_CONTEXT_WORDS.has(phrase))continue;
+   if(phrase.replace(/ /g,'').length<5||!Array.from(index.lengths.get(size)).some(function(length){return Math.abs(length-phrase.length)<=1;}))continue;
+   add(index.exact.get(phrase),0,start,end,phrase);
+   add(index.deleted.get(phrase),1,start,end,phrase);
+   for(let i=0;i<phrase.length;i++){
+    const signature=phrase.slice(0,i)+phrase.slice(i+1);
+    add(index.exact.get(signature),1,start,end,phrase);
+    add(index.deleted.get(signature),1,start,end,phrase);
+    if(i+1<phrase.length&&phrase[i]!==phrase[i+1])add(index.exact.get(phrase.slice(0,i)+phrase[i+1]+phrase[i]+phrase.slice(i+2)),1,start,end,phrase);
+   }
+  }
+ });
+ // Keep conservative two-edit suggestions for diagnostics; these never auto-pass.
+ localFuzzySuggestions(text).forEach(function(candidate){if(candidate.distance===2&&!results.has(candidate.id))results.set(candidate.id,candidate);});
+ return Array.from(results.values()).sort(function(a,b){return a.distance-b.distance||a.id-b.id;});
 }
 function validDate(value) {
  if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value))return null;
@@ -175,18 +250,21 @@ function classifyTitle(request,deps) {
  if(Object.prototype.hasOwnProperty.call(VERIFIED_TITLES,text))return classificationSuccess(VERIFIED_TITLES[text],'definite','Verified historical lookup',100);
  const blocked=Object.prototype.hasOwnProperty.call(UNVERIFIED_TITLES,text)?UNVERIFIED_TITLES[text]:null;
  const direct=deterministicClassification(text);
+ if(blocked==='Parsha name without an explicit Parsha marker'&&direct.ok)
+  return classificationSuccess(direct.classification.subCategoryId,'definite','Unambiguous name anywhere in title overrides missing-marker quarantine',100);
  if(blocked && blocked!=='vayeira-tie'){
-  // Harvested label conflicts do not make an exact, unique canonical name unclear.
+  // Harvested labels cannot veto a clear, unique exact reference anywhere in a title.
   // Explicit administrator decisions remain authoritative and are never bypassed.
-  const exact=direct.ok&&CLASSIFIER_ENTRIES.some(function(entry){
-   return entry.taxon.subCategoryId===direct.classification.subCategoryId&&entry.aliases.indexOf(text)!==-1;
-  });
+  const exact=direct.ok;
   if(exact&&blocked==='Historical subtopic conflict; manual classification required')
    return classificationSuccess(direct.classification.subCategoryId,'definite','Exact name overrides conflicting harvested labels',100);
+  if(exact&&blocked==='Parsha name without an explicit Parsha marker')
+   return classificationSuccess(direct.classification.subCategoryId,'definite','Explicit Parsha heading overrides missing-marker quarantine',100);
   return classificationFailure(blocked,textualEvidence(text));
  }
  if(direct.ok&&!blocked)return direct;
  const ids=textualEvidence(text);
+ if(direct.reason==='Competing exact and fuzzy topic references')return direct;
  let fuzzy=fuzzyCandidates(text);
  const weakConcept=hasPhrase(text,'matan torah')||hasPhrase(text,'מתן תורה');
  if(weakConcept&&!fuzzy.length)fuzzy=[{id:40,distance:2},{id:61,distance:2}];
@@ -200,6 +278,13 @@ function classifyTitle(request,deps) {
  // calendar breaks ties between equally plausible one-edit names; it is not a veto.
  // Weak two-edit suggestions and shared concepts never become automatic labels.
  const strong=fuzzy.filter(function(candidate){return candidate.distance===1;});
+ if(!pair&&!weekly&&strong.length>1){
+  const sameReference=(strong[0].spans||[]).some(function(span){return strong.every(function(candidate){
+   return (candidate.spans||[]).some(function(other){return span.start<other.end&&span.end>other.start;});
+  });});
+  if(!sameReference)return classificationFailure('Multiple competing fuzzy topic references in title',strong.map(function(candidate){return candidate.id;}));
+ }
+
  if(!pair&&!weekly){
   if(weakConcept)return classificationFailure('Matan Torah is shared by Shavuot and Yitro; insufficient distinctive text',[40,61]);
   if(strong.length===1&&!fuzzy.some(function(candidate){return candidate.distance===0;}))
